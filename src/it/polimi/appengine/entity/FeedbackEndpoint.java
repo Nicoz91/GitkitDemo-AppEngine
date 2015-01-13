@@ -1,6 +1,6 @@
-package com.google.identitytoolkit.demo;
+package it.polimi.appengine.entity;
 
-import com.google.identitytoolkit.demo.EMF;
+import it.polimi.appengine.support.EMF;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -18,8 +18,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "deviceinfoendpoint", namespace = @ApiNamespace(ownerDomain = "google.com", ownerName = "google.com", packagePath = "identitytoolkit.demo"))
-public class DeviceInfoEndpoint {
+@Api(name = "feedbackendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
+public class FeedbackEndpoint {
 
 	/**
 	 * This method lists all the entities inserted in datastore.
@@ -29,19 +29,18 @@ public class DeviceInfoEndpoint {
 	 * persisted and a cursor to the next page.
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
-	@ApiMethod(name = "listDeviceInfo")
-	public CollectionResponse<DeviceInfo> listDeviceInfo(
+	@ApiMethod(name = "listFeedback")
+	public CollectionResponse<Feedback> listFeedback(
 			@Nullable @Named("cursor") String cursorString,
 			@Nullable @Named("limit") Integer limit) {
 
 		EntityManager mgr = null;
 		Cursor cursor = null;
-		List<DeviceInfo> execute = null;
+		List<Feedback> execute = null;
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr
-					.createQuery("select from DeviceInfo as DeviceInfo");
+			Query query = mgr.createQuery("select from Feedback as Feedback");
 			if (cursorString != null && cursorString != "") {
 				cursor = Cursor.fromWebSafeString(cursorString);
 				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -52,20 +51,20 @@ public class DeviceInfoEndpoint {
 				query.setMaxResults(limit);
 			}
 
-			execute = (List<DeviceInfo>) query.getResultList();
+			execute = (List<Feedback>) query.getResultList();
 			cursor = JPACursorHelper.getCursor(execute);
 			if (cursor != null)
 				cursorString = cursor.toWebSafeString();
 
 			// Tight loop for fetching all entities from datastore and accomodate
 			// for lazy fetch.
-			for (DeviceInfo obj : execute)
+			for (Feedback obj : execute)
 				;
 		} finally {
 			mgr.close();
 		}
 
-		return CollectionResponse.<DeviceInfo> builder().setItems(execute)
+		return CollectionResponse.<Feedback> builder().setItems(execute)
 				.setNextPageToken(cursorString).build();
 	}
 
@@ -75,16 +74,16 @@ public class DeviceInfoEndpoint {
 	 * @param id the primary key of the java bean.
 	 * @return The entity with primary key id.
 	 */
-	@ApiMethod(name = "getDeviceInfo")
-	public DeviceInfo getDeviceInfo(@Named("id") String id) {
+	@ApiMethod(name = "getFeedback")
+	public Feedback getFeedback(@Named("id") Long id) {
 		EntityManager mgr = getEntityManager();
-		DeviceInfo deviceinfo = null;
+		Feedback feedback = null;
 		try {
-			deviceinfo = mgr.find(DeviceInfo.class, id);
+			feedback = mgr.find(Feedback.class, id);
 		} finally {
 			mgr.close();
 		}
-		return deviceinfo;
+		return feedback;
 	}
 
 	/**
@@ -92,21 +91,21 @@ public class DeviceInfoEndpoint {
 	 * exists in the datastore, an exception is thrown.
 	 * It uses HTTP POST method.
 	 *
-	 * @param deviceinfo the entity to be inserted.
+	 * @param feedback the entity to be inserted.
 	 * @return The inserted entity.
 	 */
-	@ApiMethod(name = "insertDeviceInfo")
-	public DeviceInfo insertDeviceInfo(DeviceInfo deviceinfo) {
+	@ApiMethod(name = "insertFeedback")
+	public Feedback insertFeedback(Feedback feedback) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (containsDeviceInfo(deviceinfo)) {
+			if (containsFeedback(feedback)) {
 				throw new EntityExistsException("Object already exists");
 			}
-			mgr.persist(deviceinfo);
+			mgr.persist(feedback);
 		} finally {
 			mgr.close();
 		}
-		return deviceinfo;
+		return feedback;
 	}
 
 	/**
@@ -114,21 +113,21 @@ public class DeviceInfoEndpoint {
 	 * exist in the datastore, an exception is thrown.
 	 * It uses HTTP PUT method.
 	 *
-	 * @param deviceinfo the entity to be updated.
+	 * @param feedback the entity to be updated.
 	 * @return The updated entity.
 	 */
-	@ApiMethod(name = "updateDeviceInfo")
-	public DeviceInfo updateDeviceInfo(DeviceInfo deviceinfo) {
+	@ApiMethod(name = "updateFeedback")
+	public Feedback updateFeedback(Feedback feedback) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (!containsDeviceInfo(deviceinfo)) {
+			if (!containsFeedback(feedback)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(deviceinfo);
+			mgr.persist(feedback);
 		} finally {
 			mgr.close();
 		}
-		return deviceinfo;
+		return feedback;
 	}
 
 	/**
@@ -137,23 +136,22 @@ public class DeviceInfoEndpoint {
 	 *
 	 * @param id the primary key of the entity to be deleted.
 	 */
-	@ApiMethod(name = "removeDeviceInfo")
-	public void removeDeviceInfo(@Named("id") String id) {
+	@ApiMethod(name = "removeFeedback")
+	public void removeFeedback(@Named("id") Long id) {
 		EntityManager mgr = getEntityManager();
 		try {
-			DeviceInfo deviceinfo = mgr.find(DeviceInfo.class, id);
-			mgr.remove(deviceinfo);
+			Feedback feedback = mgr.find(Feedback.class, id);
+			mgr.remove(feedback);
 		} finally {
 			mgr.close();
 		}
 	}
 
-	private boolean containsDeviceInfo(DeviceInfo deviceinfo) {
+	private boolean containsFeedback(Feedback feedback) {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			DeviceInfo item = mgr.find(DeviceInfo.class,
-					deviceinfo.getDeviceRegistrationID());
+			Feedback item = mgr.find(Feedback.class, feedback.getKey());
 			if (item == null) {
 				contains = false;
 			}

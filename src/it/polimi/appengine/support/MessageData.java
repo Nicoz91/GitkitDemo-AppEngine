@@ -1,4 +1,4 @@
-package com.google.identitytoolkit.demo;
+package it.polimi.appengine.support;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

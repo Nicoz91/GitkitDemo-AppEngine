@@ -1,6 +1,5 @@
-package com.google.identitytoolkit.demo;
+package it.polimi.appengine.support;
 
-import com.google.identitytoolkit.demo.EMF;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -8,6 +7,8 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
+
+import it.polimi.appengine.support.EMF;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "userinfoendpoint", namespace = @ApiNamespace(ownerDomain = "google.com", ownerName = "google.com", packagePath = "identitytoolkit.demo"))
-public class UserInfoEndpoint {
+@Api(name = "deviceinfoendpoint", namespace = @ApiNamespace(ownerDomain = "google.com", ownerName = "google.com", packagePath = "identitytoolkit.demo"))
+public class DeviceInfoEndpoint {
 
 	/**
 	 * This method lists all the entities inserted in datastore.
@@ -29,18 +30,19 @@ public class UserInfoEndpoint {
 	 * persisted and a cursor to the next page.
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
-	@ApiMethod(name = "listUserInfo")
-	public CollectionResponse<UserInfo> listUserInfo(
+	@ApiMethod(name = "listDeviceInfo")
+	public CollectionResponse<DeviceInfo> listDeviceInfo(
 			@Nullable @Named("cursor") String cursorString,
 			@Nullable @Named("limit") Integer limit) {
 
 		EntityManager mgr = null;
 		Cursor cursor = null;
-		List<UserInfo> execute = null;
+		List<DeviceInfo> execute = null;
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("select from UserInfo as UserInfo");
+			Query query = mgr
+					.createQuery("select from DeviceInfo as DeviceInfo");
 			if (cursorString != null && cursorString != "") {
 				cursor = Cursor.fromWebSafeString(cursorString);
 				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -51,20 +53,20 @@ public class UserInfoEndpoint {
 				query.setMaxResults(limit);
 			}
 
-			execute = (List<UserInfo>) query.getResultList();
+			execute = (List<DeviceInfo>) query.getResultList();
 			cursor = JPACursorHelper.getCursor(execute);
 			if (cursor != null)
 				cursorString = cursor.toWebSafeString();
 
 			// Tight loop for fetching all entities from datastore and accomodate
 			// for lazy fetch.
-			for (UserInfo obj : execute)
+			for (DeviceInfo obj : execute)
 				;
 		} finally {
 			mgr.close();
 		}
 
-		return CollectionResponse.<UserInfo> builder().setItems(execute)
+		return CollectionResponse.<DeviceInfo> builder().setItems(execute)
 				.setNextPageToken(cursorString).build();
 	}
 
@@ -74,16 +76,16 @@ public class UserInfoEndpoint {
 	 * @param id the primary key of the java bean.
 	 * @return The entity with primary key id.
 	 */
-	@ApiMethod(name = "getUserInfo")
-	public UserInfo getUserInfo(@Named("id") String id) {
+	@ApiMethod(name = "getDeviceInfo")
+	public DeviceInfo getDeviceInfo(@Named("id") String id) {
 		EntityManager mgr = getEntityManager();
-		UserInfo userinfo = null;
+		DeviceInfo deviceinfo = null;
 		try {
-			userinfo = mgr.find(UserInfo.class, id);
+			deviceinfo = mgr.find(DeviceInfo.class, id);
 		} finally {
 			mgr.close();
 		}
-		return userinfo;
+		return deviceinfo;
 	}
 
 	/**
@@ -91,21 +93,21 @@ public class UserInfoEndpoint {
 	 * exists in the datastore, an exception is thrown.
 	 * It uses HTTP POST method.
 	 *
-	 * @param userinfo the entity to be inserted.
+	 * @param deviceinfo the entity to be inserted.
 	 * @return The inserted entity.
 	 */
-	@ApiMethod(name = "insertUserInfo")
-	public UserInfo insertUserInfo(UserInfo userinfo) {
+	@ApiMethod(name = "insertDeviceInfo")
+	public DeviceInfo insertDeviceInfo(DeviceInfo deviceinfo) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (containsUserInfo(userinfo)) {
+			if (containsDeviceInfo(deviceinfo)) {
 				throw new EntityExistsException("Object already exists");
 			}
-			mgr.persist(userinfo);
+			mgr.persist(deviceinfo);
 		} finally {
 			mgr.close();
 		}
-		return userinfo;
+		return deviceinfo;
 	}
 
 	/**
@@ -113,21 +115,21 @@ public class UserInfoEndpoint {
 	 * exist in the datastore, an exception is thrown.
 	 * It uses HTTP PUT method.
 	 *
-	 * @param userinfo the entity to be updated.
+	 * @param deviceinfo the entity to be updated.
 	 * @return The updated entity.
 	 */
-	@ApiMethod(name = "updateUserInfo")
-	public UserInfo updateUserInfo(UserInfo userinfo) {
+	@ApiMethod(name = "updateDeviceInfo")
+	public DeviceInfo updateDeviceInfo(DeviceInfo deviceinfo) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (!containsUserInfo(userinfo)) {
+			if (!containsDeviceInfo(deviceinfo)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(userinfo);
+			mgr.persist(deviceinfo);
 		} finally {
 			mgr.close();
 		}
-		return userinfo;
+		return deviceinfo;
 	}
 
 	/**
@@ -136,22 +138,23 @@ public class UserInfoEndpoint {
 	 *
 	 * @param id the primary key of the entity to be deleted.
 	 */
-	@ApiMethod(name = "removeUserInfo")
-	public void removeUserInfo(@Named("id") String id) {
+	@ApiMethod(name = "removeDeviceInfo")
+	public void removeDeviceInfo(@Named("id") String id) {
 		EntityManager mgr = getEntityManager();
 		try {
-			UserInfo userinfo = mgr.find(UserInfo.class, id);
-			mgr.remove(userinfo);
+			DeviceInfo deviceinfo = mgr.find(DeviceInfo.class, id);
+			mgr.remove(deviceinfo);
 		} finally {
 			mgr.close();
 		}
 	}
 
-	private boolean containsUserInfo(UserInfo userinfo) {
+	private boolean containsDeviceInfo(DeviceInfo deviceinfo) {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			UserInfo item = mgr.find(UserInfo.class, userinfo.getUserEmail());
+			DeviceInfo item = mgr.find(DeviceInfo.class,
+					deviceinfo.getDeviceRegistrationID());
 			if (item == null) {
 				contains = false;
 			}

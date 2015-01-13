@@ -1,0 +1,341 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://wired-balm-818.appspot.com/_ah/api",
+  "name" : "feedbackendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://wired-balm-818.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "polimi.it",
+  "ownerName" : "polimi.it",
+  "packagePath" : "appengine.entity",
+  "methods" : {
+    "feedbackendpoint.listFeedback" : {
+      "path" : "feedback",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "feedbackendpoint.updateFeedback" : {
+      "path" : "feedback",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "feedbackendpoint.getFeedback" : {
+      "path" : "feedback/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.getFeedback",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "feedbackendpoint.insertFeedback" : {
+      "path" : "feedback",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.insertFeedback",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "feedbackendpoint.removeFeedback" : {
+      "path" : "feedback/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.removeFeedback",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "CollectionResponse_Feedback" : {
+        "id" : "CollectionResponse_Feedback",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Feedback"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Feedback" : {
+        "id" : "Feedback",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
+          "evaluation" : {
+            "type" : "integer"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "from" : {
+            "$ref" : "User"
+          },
+          "to" : {
+            "$ref" : "User"
+          }
+        }
+      },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "namespace" : {
+            "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "User" : {
+        "id" : "User",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
+          "pwAccount" : {
+            "type" : "string"
+          },
+          "gmailAccount" : {
+            "type" : "string"
+          },
+          "fbAccount" : {
+            "type" : "string"
+          },
+          "authToken" : {
+            "type" : "string"
+          },
+          "photoURL" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "surname" : {
+            "type" : "string"
+          },
+          "bday" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "requests" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Request"
+            }
+          },
+          "joinedReq" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Key"
+            }
+          },
+          "receivedFb" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Feedback"
+            }
+          },
+          "sentFb" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Feedback"
+            }
+          }
+        }
+      },
+      "Request" : {
+        "id" : "Request",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "place" : {
+            "$ref" : "GeoPt"
+          },
+          "start" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "end" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "maxPartecipants" : {
+            "type" : "integer"
+          },
+          "partecipants" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Key"
+            }
+          },
+          "owner" : {
+            "$ref" : "User"
+          }
+        }
+      },
+      "GeoPt" : {
+        "id" : "GeoPt",
+        "type" : "object",
+        "properties" : {
+          "latitude" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "longitude" : {
+            "type" : "number",
+            "format" : "float"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Feedback"
+        }
+      },
+      "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback" : {
+        "request" : {
+          "$ref" : "Feedback"
+        },
+        "response" : {
+          "$ref" : "Feedback"
+        }
+      },
+      "it.polimi.appengine.entity.FeedbackEndpoint.getFeedback" : {
+        "response" : {
+          "$ref" : "Feedback"
+        }
+      },
+      "it.polimi.appengine.entity.FeedbackEndpoint.insertFeedback" : {
+        "request" : {
+          "$ref" : "Feedback"
+        },
+        "response" : {
+          "$ref" : "Feedback"
+        }
+      },
+      "it.polimi.appengine.entity.FeedbackEndpoint.removeFeedback" : {
+      }
+    }
+  }
+}

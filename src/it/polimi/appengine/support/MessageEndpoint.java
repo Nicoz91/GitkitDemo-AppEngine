@@ -1,4 +1,4 @@
-package com.google.identitytoolkit.demo;
+package it.polimi.appengine.support;
 
 import java.io.IOException;
 import java.util.List;

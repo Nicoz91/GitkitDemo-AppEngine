@@ -1,23 +1,23 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/Ux_sjg3gsKS2cp8BvQFh_S_GDYI\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/s4fl6VP801lPkN8ABMvfnOaqAlc\"",
  "discoveryVersion": "v1",
- "id": "userinfoendpoint:v1",
- "name": "userinfoendpoint",
+ "id": "userendpoint:v1",
+ "name": "userendpoint",
  "version": "v1",
  "description": "This is an API",
- "ownerDomain": "google.com",
- "ownerName": "google.com",
- "packagePath": "identitytoolkit.demo",
+ "ownerDomain": "polimi.it",
+ "ownerName": "polimi.it",
+ "packagePath": "appengine.entity",
  "icons": {
   "x16": "http://www.google.com/images/icons/product/search-16.gif",
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://wired-balm-818.appspot.com/_ah/api/userinfoendpoint/v1/",
- "basePath": "/_ah/api/userinfoendpoint/v1/",
+ "baseUrl": "https://wired-balm-818.appspot.com/_ah/api/userendpoint/v1/",
+ "basePath": "/_ah/api/userendpoint/v1/",
  "rootUrl": "https://wired-balm-818.appspot.com/_ah/api/",
- "servicePath": "userinfoendpoint/v1/",
+ "servicePath": "userendpoint/v1/",
  "batchPath": "batch",
  "parameters": {
   "alt": {
@@ -74,14 +74,14 @@
   }
  },
  "schemas": {
-  "CollectionResponse_UserInfo": {
-   "id": "CollectionResponse_UserInfo",
+  "CollectionResponse_User": {
+   "id": "CollectionResponse_User",
    "type": "object",
    "properties": {
     "items": {
      "type": "array",
      "items": {
-      "$ref": "UserInfo"
+      "$ref": "User"
      }
     },
     "nextPageToken": {
@@ -89,28 +89,181 @@
     }
    }
   },
-  "UserInfo": {
-   "id": "UserInfo",
+  "Feedback": {
+   "id": "Feedback",
    "type": "object",
    "properties": {
     "description": {
      "type": "string"
     },
-    "userEmail": {
+    "evaluation": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "$ref": "User"
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "to": {
+     "$ref": "User"
+    }
+   }
+  },
+  "GeoPt": {
+   "id": "GeoPt",
+   "type": "object",
+   "properties": {
+    "latitude": {
+     "type": "number",
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "float"
+    }
+   }
+  },
+  "Key": {
+   "id": "Key",
+   "type": "object",
+   "properties": {
+    "appId": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string"
+    },
+    "parent": {
+     "$ref": "Key"
+    }
+   }
+  },
+  "Request": {
+   "id": "Request",
+   "type": "object",
+   "properties": {
+    "description": {
+     "type": "string"
+    },
+    "end": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "maxPartecipants": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "owner": {
+     "$ref": "User"
+    },
+    "partecipants": {
+     "type": "array",
+     "items": {
+      "$ref": "Key"
+     }
+    },
+    "place": {
+     "$ref": "GeoPt"
+    },
+    "start": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "User": {
+   "id": "User",
+   "type": "object",
+   "properties": {
+    "authToken": {
+     "type": "string"
+    },
+    "bday": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "fbAccount": {
+     "type": "string"
+    },
+    "gmailAccount": {
+     "type": "string"
+    },
+    "joinedReq": {
+     "type": "array",
+     "items": {
+      "$ref": "Key"
+     }
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "name": {
+     "type": "string"
+    },
+    "photoURL": {
+     "type": "string"
+    },
+    "pwAccount": {
+     "type": "string"
+    },
+    "receivedFb": {
+     "type": "array",
+     "items": {
+      "$ref": "Feedback"
+     }
+    },
+    "requests": {
+     "type": "array",
+     "items": {
+      "$ref": "Request"
+     }
+    },
+    "sentFb": {
+     "type": "array",
+     "items": {
+      "$ref": "Feedback"
+     }
+    },
+    "surname": {
      "type": "string"
     }
    }
   }
  },
  "methods": {
-  "getUserInfo": {
-   "id": "userinfoendpoint.getUserInfo",
-   "path": "userinfo/{id}",
+  "getUser": {
+   "id": "userendpoint.getUser",
+   "path": "user/{id}",
    "httpMethod": "GET",
    "parameters": {
     "id": {
      "type": "string",
      "required": true,
+     "format": "int64",
      "location": "path"
     }
    },
@@ -118,30 +271,30 @@
     "id"
    ],
    "response": {
-    "$ref": "UserInfo"
+    "$ref": "User"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "insertUserInfo": {
-   "id": "userinfoendpoint.insertUserInfo",
-   "path": "userinfo",
+  "insertUser": {
+   "id": "userendpoint.insertUser",
+   "path": "user",
    "httpMethod": "POST",
    "request": {
-    "$ref": "UserInfo",
+    "$ref": "User",
     "parameterName": "resource"
    },
    "response": {
-    "$ref": "UserInfo"
+    "$ref": "User"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "listUserInfo": {
-   "id": "userinfoendpoint.listUserInfo",
-   "path": "userinfo",
+  "listUser": {
+   "id": "userendpoint.listUser",
+   "path": "user",
    "httpMethod": "GET",
    "parameters": {
     "cursor": {
@@ -155,20 +308,21 @@
     }
    },
    "response": {
-    "$ref": "CollectionResponse_UserInfo"
+    "$ref": "CollectionResponse_User"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "removeUserInfo": {
-   "id": "userinfoendpoint.removeUserInfo",
-   "path": "userinfo/{id}",
+  "removeUser": {
+   "id": "userendpoint.removeUser",
+   "path": "user/{id}",
    "httpMethod": "DELETE",
    "parameters": {
     "id": {
      "type": "string",
      "required": true,
+     "format": "int64",
      "location": "path"
     }
    },
@@ -179,16 +333,16 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "updateUserInfo": {
-   "id": "userinfoendpoint.updateUserInfo",
-   "path": "userinfo",
+  "updateUser": {
+   "id": "userendpoint.updateUser",
+   "path": "user",
    "httpMethod": "PUT",
    "request": {
-    "$ref": "UserInfo",
+    "$ref": "User",
     "parameterName": "resource"
    },
    "response": {
-    "$ref": "UserInfo"
+    "$ref": "User"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
