@@ -27,6 +27,22 @@
   "ownerName" : "polimi.it",
   "packagePath" : "appengine.entity",
   "methods" : {
+    "feedbackendpoint.updateFeedback" : {
+      "path" : "feedback",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "feedbackendpoint.listFeedback" : {
       "path" : "feedback",
       "httpMethod" : "GET",
@@ -47,22 +63,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "feedbackendpoint.updateFeedback" : {
-      "path" : "feedback",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -129,21 +129,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Feedback" : {
-        "id" : "CollectionResponse_Feedback",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Feedback"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "Feedback" : {
         "id" : "Feedback",
         "type" : "object",
@@ -185,11 +170,11 @@
           "parent" : {
             "$ref" : "Key"
           },
-          "namespace" : {
-            "type" : "string"
-          },
           "complete" : {
             "type" : "boolean"
+          },
+          "namespace" : {
+            "type" : "string"
           }
         }
       },
@@ -305,20 +290,35 @@
             "format" : "float"
           }
         }
+      },
+      "CollectionResponse_Feedback" : {
+        "id" : "CollectionResponse_Feedback",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Feedback"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
-      "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Feedback"
-        }
-      },
       "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback" : {
         "request" : {
           "$ref" : "Feedback"
         },
         "response" : {
           "$ref" : "Feedback"
+        }
+      },
+      "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Feedback"
         }
       },
       "it.polimi.appengine.entity.FeedbackEndpoint.getFeedback" : {
