@@ -56,8 +56,10 @@ public class User {
 	@Persistent
 	private Set<Key> joinedReq;
 	@Persistent(mappedBy = "from")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Feedback> receivedFb;
 	@Persistent(mappedBy = "to")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Feedback> sentFb;
 	
 	public Key getKey() {

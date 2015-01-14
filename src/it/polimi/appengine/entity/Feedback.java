@@ -1,10 +1,12 @@
 package it.polimi.appengine.entity;
 
 import javax.jdo.annotations.Persistent;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -20,8 +22,10 @@ public class Feedback {
 	private String description;
 	
 	@Persistent
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User from;
 	@Persistent
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User to;
 	public Key getKey() {
 		return key;
