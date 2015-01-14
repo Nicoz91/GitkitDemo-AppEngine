@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.GeoPt;
 import com.google.appengine.api.datastore.Key;
@@ -18,17 +19,24 @@ public class Request {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;
-	
+	@Persistent
 	private String type;
+	@Persistent
 	private String title;
+	@Persistent
 	private String description;
+	@Persistent
 	private GeoPt place;
+	@Persistent
 	private Date start;
+	@Persistent
 	private Date end;
+	@Persistent
 	private int maxPartecipants;
 	@Persistent
 	private Set<Key> partecipants;
 	@Persistent
+	@ManyToOne
 	private User owner;
 	
 	public Key getKey() {

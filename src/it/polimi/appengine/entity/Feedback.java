@@ -14,8 +14,9 @@ public class Feedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;
-	
+	@Persistent
 	private int evaluation;
+	@Persistent
 	private String description;
 	
 	@Persistent

@@ -19,10 +19,12 @@ import java.util.List;
 import java.util.Set;
 
 import javax.jdo.annotations.Persistent;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -32,16 +34,24 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;
-	
+	@Persistent
 	private String pwAccount;
+	@Persistent
 	private String gmailAccount;
+	@Persistent
 	private String fbAccount;
+	@Persistent
 	private String authToken;
+	@Persistent
 	private String photoURL;
+	@Persistent
 	private String name;
+	@Persistent
 	private String surname;
+	@Persistent
 	private Date bday;
 	@Persistent(mappedBy = "owner")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Request> requests;
 	@Persistent
 	private Set<Key> joinedReq;
