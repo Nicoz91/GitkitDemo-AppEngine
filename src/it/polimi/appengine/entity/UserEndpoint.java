@@ -98,8 +98,10 @@ public class UserEndpoint {
 	public User insertUser(User user) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (containsUser(user)) {
-				throw new EntityExistsException("Object already exists");
+			if(user.getKey()!=null){
+				if (containsUser(user)) {
+					throw new EntityExistsException("Object already exists");
+				}
 			}
 			mgr.persist(user);
 		} finally {

@@ -98,8 +98,10 @@ public class FeedbackEndpoint {
 	public Feedback insertFeedback(Feedback feedback) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (containsFeedback(feedback)) {
-				throw new EntityExistsException("Object already exists");
+			if(feedback.getKey()!=null){
+				if (containsFeedback(feedback)) {
+					throw new EntityExistsException("Object already exists");
+				}
 			}
 			mgr.persist(feedback);
 		} finally {

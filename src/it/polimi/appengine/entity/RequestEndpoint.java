@@ -98,8 +98,10 @@ public class RequestEndpoint {
 	public Request insertRequest(Request request) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (containsRequest(request)) {
-				throw new EntityExistsException("Object already exists");
+			if (request.getKey()!=null){
+				if (containsRequest(request)) {
+					throw new EntityExistsException("Object already exists");
+				}
 			}
 			mgr.persist(request);
 		} finally {
