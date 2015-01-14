@@ -1,4 +1,4 @@
-package it.polimi.appengine.support;
+package it.polimi.appengine.util;
 
 import java.io.IOException;
 import java.util.List;

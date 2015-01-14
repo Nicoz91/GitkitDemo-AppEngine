@@ -5,7 +5,7 @@
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
   <init-param>
    <param-name>services</param-name>
-   <param-value>it.polimi.appengine.entity.FeedbackEndpoint,it.polimi.appengine.entity.RequestEndpoint,it.polimi.appengine.entity.UserEndpoint,it.polimi.appengine.support.DeviceInfoEndpoint,it.polimi.appengine.support.MessageEndpoint</param-value>
+   <param-value>it.polimi.appengine.entity.FeedbackEndpoint,it.polimi.appengine.entity.RequestEndpoint,it.polimi.appengine.entity.UserEndpoint,it.polimi.appengine.util.DeviceInfoEndpoint,it.polimi.appengine.util.MessageEndpoint</param-value>
   </init-param>
  </servlet>
  <servlet-mapping>

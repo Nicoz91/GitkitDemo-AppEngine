@@ -1,4 +1,4 @@
-package it.polimi.appengine.support;
+package it.polimi.appengine.util;
 
 
 import com.google.api.server.spi.config.Api;
@@ -8,7 +8,7 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
-import it.polimi.appengine.support.EMF;
+import it.polimi.appengine.util.EMF;
 
 import java.util.List;
 
