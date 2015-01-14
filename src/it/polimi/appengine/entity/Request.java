@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.jdo.annotations.Persistent;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,7 +37,7 @@ public class Request {
 	@Persistent
 	private Set<Key> partecipants;
 	@Persistent
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User owner;
 	
 	public Key getKey() {
