@@ -1,4 +1,4 @@
-package it.polimi.appengine.support;
+package it.polimi.appengine.util;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

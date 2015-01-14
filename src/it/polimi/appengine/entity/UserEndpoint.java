@@ -1,6 +1,6 @@
 package it.polimi.appengine.entity;
 
-import it.polimi.appengine.support.EMF;
+import it.polimi.appengine.util.EMF;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
