@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://wired-balm-818.appspot.com/_ah/api",
-  "name" : "feedbackendpoint",
+  "name" : "userendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
@@ -27,14 +27,51 @@
   "ownerName" : "polimi.it",
   "packagePath" : "appengine.entity",
   "methods" : {
-    "feedbackendpoint.listFeedback" : {
-      "path" : "feedback",
+    "userendpoint.updateUser" : {
+      "path" : "user",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "userendpoint.getUser" : {
+      "path" : "user/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback",
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUser",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "userendpoint.listUser" : {
+      "path" : "user",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.listUser",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -52,51 +89,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "feedbackendpoint.updateFeedback" : {
-      "path" : "feedback",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "feedbackendpoint.getFeedback" : {
-      "path" : "feedback/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.getFeedback",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "feedbackendpoint.insertFeedback" : {
-      "path" : "feedback",
+    "userendpoint.insertUser" : {
+      "path" : "user",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.insertFeedback",
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.insertUser",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -105,14 +105,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "feedbackendpoint.removeFeedback" : {
-      "path" : "feedback/{id}",
+    "userendpoint.removeUser" : {
+      "path" : "user/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.removeFeedback",
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.removeUser",
       "request" : {
         "parameters" : {
           "id" : {
@@ -129,70 +129,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Feedback" : {
-        "id" : "CollectionResponse_Feedback",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Feedback"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Feedback" : {
-        "id" : "Feedback",
-        "type" : "object",
-        "properties" : {
-          "key" : {
-            "$ref" : "Key"
-          },
-          "evaluation" : {
-            "type" : "integer"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "from" : {
-            "$ref" : "User"
-          },
-          "to" : {
-            "$ref" : "User"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
-          },
-          "complete" : {
-            "type" : "boolean"
-          },
-          "namespace" : {
-            "type" : "string"
-          }
-        }
-      },
       "User" : {
         "id" : "User",
         "type" : "object",
@@ -251,6 +187,34 @@
           }
         }
       },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "complete" : {
+            "type" : "boolean"
+          },
+          "namespace" : {
+            "type" : "string"
+          }
+        }
+      },
       "Request" : {
         "id" : "Request",
         "type" : "object",
@@ -305,36 +269,72 @@
             "format" : "float"
           }
         }
+      },
+      "Feedback" : {
+        "id" : "Feedback",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
+          "evaluation" : {
+            "type" : "integer"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "from" : {
+            "$ref" : "User"
+          },
+          "to" : {
+            "$ref" : "User"
+          }
+        }
+      },
+      "CollectionResponse_User" : {
+        "id" : "CollectionResponse_User",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "User"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
-      "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Feedback"
-        }
-      },
-      "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback" : {
+      "it.polimi.appengine.entity.UserEndpoint.updateUser" : {
         "request" : {
-          "$ref" : "Feedback"
+          "$ref" : "User"
         },
         "response" : {
-          "$ref" : "Feedback"
+          "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.FeedbackEndpoint.getFeedback" : {
+      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
         "response" : {
-          "$ref" : "Feedback"
+          "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.FeedbackEndpoint.insertFeedback" : {
+      "it.polimi.appengine.entity.UserEndpoint.listUser" : {
+        "response" : {
+          "$ref" : "CollectionResponse_User"
+        }
+      },
+      "it.polimi.appengine.entity.UserEndpoint.insertUser" : {
         "request" : {
-          "$ref" : "Feedback"
+          "$ref" : "User"
         },
         "response" : {
-          "$ref" : "Feedback"
+          "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.FeedbackEndpoint.removeFeedback" : {
+      "it.polimi.appengine.entity.UserEndpoint.removeUser" : {
       }
     }
   }
