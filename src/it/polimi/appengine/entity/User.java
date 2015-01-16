@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.jdo.annotations.Persistent;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,12 +54,17 @@ public class User {
 	private Date bday;
 	@Persistent(mappedBy = "owner")
 	@OneToMany(cascade = CascadeType.ALL)
+	@Basic(fetch = FetchType.EAGER)
 	private List<Request> requests;
 	@Persistent
 	private Set<Key> joinedReq;
 	@Persistent(mappedBy = "from")
+	@OneToMany(cascade = CascadeType.ALL)
+	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> receivedFb;
 	@Persistent(mappedBy = "to")
+	@OneToMany(cascade = CascadeType.ALL)
+	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> sentFb;
 	
 	public Key getKey() {
