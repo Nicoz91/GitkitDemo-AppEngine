@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/eTYptNWSrQ64Y6Mxx9YA5P8tR3w\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/PAqrUPXsTP_yT9wYZ6ymtP8seww\"",
  "discoveryVersion": "v1",
  "id": "requestendpoint:v1",
  "name": "requestendpoint",
@@ -86,6 +86,22 @@
     },
     "nextPageToken": {
      "type": "string"
+    }
+   }
+  },
+  "DeviceInfo": {
+   "id": "DeviceInfo",
+   "type": "object",
+   "properties": {
+    "deviceInformation": {
+     "type": "string"
+    },
+    "deviceRegistrationID": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "string",
+     "format": "int64"
     }
    }
   },
@@ -206,8 +222,17 @@
      "type": "string",
      "format": "date-time"
     },
+    "devices": {
+     "type": "array",
+     "items": {
+      "$ref": "DeviceInfo"
+     }
+    },
     "fbAccount": {
      "type": "string"
+    },
+    "gender": {
+     "type": "boolean"
     },
     "gmailAccount": {
      "type": "string"

@@ -23,9 +23,9 @@
     "type" : "no-cache",
     "maxAge" : 0
   },
-  "ownerDomain" : "google.com",
-  "ownerName" : "google.com",
-  "packagePath" : "identitytoolkit.demo",
+  "ownerDomain" : "polimi.it",
+  "ownerName" : "polimi.it",
+  "packagePath" : "appengine.util",
   "methods" : {
     "deviceinfoendpoint.listDeviceInfo" : {
       "path" : "deviceinfo",

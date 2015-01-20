@@ -1,14 +1,14 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/2oMQzVHf2lrbJToADgvaiaPmNRg\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/Pz79QiFzRS0ThpevHa0fe1idzBE\"",
  "discoveryVersion": "v1",
  "id": "deviceinfoendpoint:v1",
  "name": "deviceinfoendpoint",
  "version": "v1",
  "description": "This is an API",
- "ownerDomain": "google.com",
- "ownerName": "google.com",
- "packagePath": "identitytoolkit.demo",
+ "ownerDomain": "polimi.it",
+ "ownerName": "polimi.it",
+ "packagePath": "appengine.util",
  "icons": {
   "x16": "http://www.google.com/images/icons/product/search-16.gif",
   "x32": "http://www.google.com/images/icons/product/search-32.gif"

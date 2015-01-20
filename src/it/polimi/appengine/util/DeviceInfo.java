@@ -1,7 +1,12 @@
 package it.polimi.appengine.util;
 
+import it.polimi.appengine.entity.User;
+
+import javax.jdo.annotations.Persistent;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * An entity for Android device information.
@@ -33,6 +38,10 @@ public class DeviceInfo {
   @Id
   private String deviceRegistrationID;
 
+  @Persistent
+  @ManyToOne(cascade = CascadeType.ALL)
+  private User ownerDev;
+  
   /*
    * Some identifying information about the device, such as its manufacturer
    * and product name.

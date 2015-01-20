@@ -1,5 +1,6 @@
 package it.polimi.appengine.util;
 
+import it.polimi.appengine.util.EMF;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -7,8 +8,6 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
-
-import it.polimi.appengine.util.EMF;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "deviceinfoendpoint", namespace = @ApiNamespace(ownerDomain = "google.com", ownerName = "google.com", packagePath = "identitytoolkit.demo"))
+@Api(name = "deviceinfoendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.util"))
 public class DeviceInfoEndpoint {
 
 	/**

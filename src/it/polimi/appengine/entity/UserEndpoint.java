@@ -85,6 +85,21 @@ public class UserEndpoint {
 		}
 		return user;
 	}
+	
+	@ApiMethod(name = "getUserByEmail",path="user/email/{email}",httpMethod = "GET")
+	public User getUserByEmail(@Named("email") String email) {
+		EntityManager mgr = getEntityManager();
+		User user = null;
+		Query query = mgr.createQuery("select from User as User where User.pwAccount='"+email+"'");
+		//query.setFirstResult(0);
+
+		try {
+			user = (User) query.getSingleResult();
+		} finally {
+			mgr.close();
+		}
+		return user;
+	}
 
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already
@@ -98,10 +113,8 @@ public class UserEndpoint {
 	public User insertUser(User user) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if(user.getKey()!=null){
-				if (containsUser(user)) {
-					throw new EntityExistsException("Object already exists");
-				}
+			if (containsUser(user)) {
+				throw new EntityExistsException("Object already exists");
 			}
 			mgr.persist(user);
 		} finally {

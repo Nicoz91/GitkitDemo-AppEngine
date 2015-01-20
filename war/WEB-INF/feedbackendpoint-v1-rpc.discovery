@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/szTA3cSzOEr6XbVEiDBemwRN5X4\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/IxGzvZ-0jt7svecVEFsbYNDgrEE\"",
  "discoveryVersion": "v1",
  "id": "feedbackendpoint:v1",
  "name": "feedbackendpoint",
@@ -84,6 +84,22 @@
     },
     "nextPageToken": {
      "type": "string"
+    }
+   }
+  },
+  "DeviceInfo": {
+   "id": "DeviceInfo",
+   "type": "object",
+   "properties": {
+    "deviceInformation": {
+     "type": "string"
+    },
+    "deviceRegistrationID": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "string",
+     "format": "int64"
     }
    }
   },
@@ -204,8 +220,17 @@
      "type": "string",
      "format": "date-time"
     },
+    "devices": {
+     "type": "array",
+     "items": {
+      "$ref": "DeviceInfo"
+     }
+    },
     "fbAccount": {
      "type": "string"
+    },
+    "gender": {
+     "type": "boolean"
     },
     "gmailAccount": {
      "type": "string"

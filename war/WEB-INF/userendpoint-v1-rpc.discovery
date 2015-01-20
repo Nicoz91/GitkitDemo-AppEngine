@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/s4fl6VP801lPkN8ABMvfnOaqAlc\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/rs7kZqjkCE3IiE4ThxW-E7Mb9HI\"",
  "discoveryVersion": "v1",
  "id": "userendpoint:v1",
  "name": "userendpoint",
@@ -84,6 +84,22 @@
     },
     "nextPageToken": {
      "type": "string"
+    }
+   }
+  },
+  "DeviceInfo": {
+   "id": "DeviceInfo",
+   "type": "object",
+   "properties": {
+    "deviceInformation": {
+     "type": "string"
+    },
+    "deviceRegistrationID": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "string",
+     "format": "int64"
     }
    }
   },
@@ -204,8 +220,17 @@
      "type": "string",
      "format": "date-time"
     },
+    "devices": {
+     "type": "array",
+     "items": {
+      "$ref": "DeviceInfo"
+     }
+    },
     "fbAccount": {
      "type": "string"
+    },
+    "gender": {
+     "type": "boolean"
     },
     "gmailAccount": {
      "type": "string"
@@ -265,6 +290,25 @@
    },
    "parameterOrder": [
     "id"
+   ],
+   "returns": {
+    "$ref": "User"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "userendpoint.getUserByEmail": {
+   "id": "userendpoint.getUserByEmail",
+   "allowGet": true,
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "email"
    ],
    "returns": {
     "$ref": "User"

@@ -14,6 +14,8 @@
  */
 package it.polimi.appengine.entity;
 
+import it.polimi.appengine.util.DeviceInfo;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -52,20 +54,31 @@ public class User {
 	private String surname;
 	@Persistent
 	private Date bday;
+	@Persistent
+	private boolean gender;
+	
 	@Persistent(mappedBy = "owner")
 	@OneToMany(cascade = CascadeType.ALL)
 	@Basic(fetch = FetchType.EAGER)
 	private List<Request> requests;
+	
 	@Persistent
 	private Set<Key> joinedReq;
+	
 	@Persistent(mappedBy = "from")
 	@OneToMany(cascade = CascadeType.ALL)
 	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> receivedFb;
+	
 	@Persistent(mappedBy = "to")
 	@OneToMany(cascade = CascadeType.ALL)
 	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> sentFb;
+	
+	@Persistent(mappedBy = "ownerDev")
+	@OneToMany(cascade = CascadeType.ALL)
+	@Basic(fetch = FetchType.EAGER)
+	private List<DeviceInfo> devices;
 	
 	public Key getKey() {
 		return key;
@@ -144,6 +157,18 @@ public class User {
 	}
 	public void setSentFb(List<Feedback> sentFb) {
 		this.sentFb = sentFb;
+	}
+	public boolean isGender() {
+		return gender;
+	}
+	public void setGender(boolean gender) {
+		this.gender = gender;
+	}
+	public List<DeviceInfo> getDevices() {
+		return devices;
+	}
+	public void setDevices(List<DeviceInfo> devices) {
+		this.devices = devices;
 	}
 	
 }
