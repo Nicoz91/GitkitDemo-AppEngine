@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.datanucleus.api.jpa.annotations.Extension;
+
 import com.google.appengine.api.datastore.Key;
 
 @Entity
@@ -15,7 +17,9 @@ public class Feedback {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
+	@Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+	private String id;
+	
 	@Persistent
 	private int evaluation;
 	@Persistent
@@ -27,11 +31,12 @@ public class Feedback {
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User to;
-	public Key getKey() {
-		return key;
+
+	public String getId() {
+		return id;
 	}
-	public void setKey(Key key) {
-		this.key = key;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public int getEvaluation() {
 		return evaluation;

@@ -7,6 +7,8 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "feedbackendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
+@Api(name = "manager", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
 public class FeedbackEndpoint {
 
 	/**
@@ -75,11 +77,12 @@ public class FeedbackEndpoint {
 	 * @return The entity with primary key id.
 	 */
 	@ApiMethod(name = "getFeedback")
-	public Feedback getFeedback(@Named("id") Long id) {
+	public Feedback getFeedback(@Named("id") String id) {
 		EntityManager mgr = getEntityManager();
 		Feedback feedback = null;
+		Key k = KeyFactory.stringToKey(id);
 		try {
-			feedback = mgr.find(Feedback.class, id);
+			feedback = mgr.find(Feedback.class, k);
 		} finally {
 			mgr.close();
 		}
@@ -98,10 +101,9 @@ public class FeedbackEndpoint {
 	public Feedback insertFeedback(Feedback feedback) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if(feedback.getKey()!=null){
-				if (containsFeedback(feedback)) {
-					throw new EntityExistsException("Object already exists");
-				}
+			if(feedback.getId()!=null)
+			if (containsFeedback(feedback)) {
+				throw new EntityExistsException("Object already exists");
 			}
 			mgr.persist(feedback);
 		} finally {
@@ -139,7 +141,7 @@ public class FeedbackEndpoint {
 	 * @param id the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeFeedback")
-	public void removeFeedback(@Named("id") Long id) {
+	public void removeFeedback(@Named("id") String id) {
 		EntityManager mgr = getEntityManager();
 		try {
 			Feedback feedback = mgr.find(Feedback.class, id);
@@ -153,7 +155,7 @@ public class FeedbackEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			Feedback item = mgr.find(Feedback.class, feedback.getKey());
+			Feedback item = mgr.find(Feedback.class, feedback.getId());
 			if (item == null) {
 				contains = false;
 			}

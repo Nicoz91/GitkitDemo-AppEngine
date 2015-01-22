@@ -13,9 +13,6 @@
  * limitations under the License.
  */
 package it.polimi.appengine.entity;
-
-import it.polimi.appengine.util.DeviceInfo;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +34,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
+	private Long id;
 	@Persistent
 	private String pwAccount;
 	@Persistent
@@ -76,15 +73,13 @@ public class User {
 	private List<Feedback> sentFb;
 	
 	@Persistent(mappedBy = "ownerDev")
-	@OneToMany(cascade = CascadeType.ALL)
-	@Basic(fetch = FetchType.EAGER)
-	private List<DeviceInfo> devices;
+	private List<String> devices;
 	
-	public Key getKey() {
-		return key;
+	public Long getId() {
+		return id;
 	}
-	public void setKey(Key key) {
-		this.key = key;
+	public void setId(Long key) {
+		this.id = key;
 	}
 	public String getPwAccount() {
 		return pwAccount;
@@ -164,11 +159,13 @@ public class User {
 	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
-	public List<DeviceInfo> getDevices() {
+	public List<String> getDevices() {
 		return devices;
 	}
-	public void setDevices(List<DeviceInfo> devices) {
+	public void setDevices(List<String> devices) {
 		this.devices = devices;
 	}
+
+	
 	
 }

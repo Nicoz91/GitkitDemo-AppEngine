@@ -7,6 +7,8 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "requestendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
+@Api(name = "manager", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
 public class RequestEndpoint {
 
 	/**
@@ -75,14 +77,18 @@ public class RequestEndpoint {
 	 * @return The entity with primary key id.
 	 */
 	@ApiMethod(name = "getRequest")
-	public Request getRequest(@Named("id") Long id) {
+	public Request getRequest(@Named("id") String id) {
 		EntityManager mgr = getEntityManager();
 		Request request = null;
+		Key k = KeyFactory.stringToKey(id);
+		System.out.println("Stampo la k: "+k);
 		try {
-			request = mgr.find(Request.class, id);
+			request = mgr.find(Request.class, k);
 		} finally {
 			mgr.close();
 		}
+		if(request!=null)
+		System.out.println("Trovato: "+request.getTitle());
 		return request;
 	}
 
@@ -98,10 +104,10 @@ public class RequestEndpoint {
 	public Request insertRequest(Request request) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (request.getKey()!=null){
-				if (containsRequest(request)) {
-					throw new EntityExistsException("Object already exists");
-				}
+			if(request.getId()!=null)
+				
+			if (containsRequest(request)) {
+				throw new EntityExistsException("Object already exists");
 			}
 			mgr.persist(request);
 		} finally {
@@ -139,7 +145,7 @@ public class RequestEndpoint {
 	 * @param id the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeRequest")
-	public void removeRequest(@Named("id") Long id) {
+	public void removeRequest(@Named("id") String id) {
 		EntityManager mgr = getEntityManager();
 		try {
 			Request request = mgr.find(Request.class, id);
@@ -153,7 +159,7 @@ public class RequestEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			Request item = mgr.find(Request.class, request.getKey());
+			Request item = mgr.find(Request.class, request.getId());
 			if (item == null) {
 				contains = false;
 			}

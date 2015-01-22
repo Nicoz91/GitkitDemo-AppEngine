@@ -18,7 +18,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "userendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
+@Api(name = "manager", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "appengine.entity"))
+
 public class UserEndpoint {
 
 	/**
@@ -33,7 +34,7 @@ public class UserEndpoint {
 	public CollectionResponse<User> listUser(
 			@Nullable @Named("cursor") String cursorString,
 			@Nullable @Named("limit") Integer limit) {
-
+		System.out.println("Fetch della lista degli utenti");
 		EntityManager mgr = null;
 		Cursor cursor = null;
 		List<User> execute = null;
@@ -85,14 +86,14 @@ public class UserEndpoint {
 		}
 		return user;
 	}
-	
+
+
 	@ApiMethod(name = "getUserByEmail",path="user/email/{email}",httpMethod = "GET")
 	public User getUserByEmail(@Named("email") String email) {
 		EntityManager mgr = getEntityManager();
 		User user = null;
 		Query query = mgr.createQuery("select from User as User where User.pwAccount='"+email+"'");
 		//query.setFirstResult(0);
-
 		try {
 			user = (User) query.getSingleResult();
 		} finally {
@@ -101,6 +102,7 @@ public class UserEndpoint {
 		return user;
 	}
 
+	
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already
 	 * exists in the datastore, an exception is thrown.
@@ -113,6 +115,7 @@ public class UserEndpoint {
 	public User insertUser(User user) {
 		EntityManager mgr = getEntityManager();
 		try {
+			if(user.getId()!=null)
 			if (containsUser(user)) {
 				throw new EntityExistsException("Object already exists");
 			}
@@ -166,7 +169,7 @@ public class UserEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			User item = mgr.find(User.class, user.getKey());
+			User item = mgr.find(User.class, user.getId());
 			if (item == null) {
 				contains = false;
 			}

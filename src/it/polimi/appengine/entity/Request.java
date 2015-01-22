@@ -2,7 +2,6 @@ package it.polimi.appengine.entity;
 
 import java.util.Date;
 import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.datanucleus.api.jpa.annotations.Extension;
 
 import com.google.appengine.api.datastore.GeoPt;
 import com.google.appengine.api.datastore.Key;
@@ -19,7 +20,9 @@ public class Request {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
+	@Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+	private String id;
+	
 	@Persistent
 	private String type;
 	@Persistent
@@ -39,12 +42,12 @@ public class Request {
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User owner;
-	
-	public Key getKey() {
-		return key;
+
+	public String getId() {
+		return id;
 	}
-	public void setKey(Key key) {
-		this.key = key;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getType() {
 		return type;
