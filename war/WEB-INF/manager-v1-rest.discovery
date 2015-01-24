@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/hriY1yWWyLmCswdhILYCjiPUJBI\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/3K7IXh5biWgQXiq7yyYxk1MSEE0\"",
  "discoveryVersion": "v1",
  "id": "manager:v1",
  "name": "manager",
@@ -258,7 +258,7 @@
     "joinedReq": {
      "type": "array",
      "items": {
-      "$ref": "Key"
+      "type": "string"
      }
     },
     "name": {

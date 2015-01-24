@@ -60,7 +60,7 @@ public class User {
 	private List<Request> requests;
 	
 	@Persistent
-	private Set<Key> joinedReq;
+	private Set<String> joinedReq;
 	
 	@Persistent(mappedBy = "from")
 	@OneToMany(cascade = CascadeType.ALL)
@@ -135,10 +135,10 @@ public class User {
 	public void setRequests(List<Request> requests) {
 		this.requests = requests;
 	}
-	public Set<Key> getJoinedReq() {
+	public Set<String> getJoinedReq() {
 		return joinedReq;
 	}
-	public void setJoinedReq(Set<Key> joinedReq) {
+	public void setJoinedReq(Set<String> joinedReq) {
 		this.joinedReq = joinedReq;
 	}
 	public List<Feedback> getReceivedFb() {
