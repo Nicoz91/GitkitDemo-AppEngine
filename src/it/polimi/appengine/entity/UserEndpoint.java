@@ -101,6 +101,20 @@ public class UserEndpoint {
 		return user;
 	}
 
+	@ApiMethod(name = "getUserPartecipation",path="user/partecipation/{email}",httpMethod = "GET")
+	public User getUserPartecipation(@Named("email") String email) {
+		EntityManager mgr = getEntityManager();
+		User user = null;
+		Query query = mgr.createQuery("select from User as User where User.pwAccount='"+email+"'");
+		//query.setFirstResult(0);
+		try {
+			user = (User) query.getSingleResult();
+		} finally {
+			mgr.close();
+		}
+		return user;
+	}
+
 	
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already

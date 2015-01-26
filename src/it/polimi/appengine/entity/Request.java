@@ -38,7 +38,7 @@ public class Request {
 	@Persistent
 	private int maxPartecipants;
 	@Persistent
-	private Set<Key> partecipants;
+	private Set<Long> partecipants;
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User owner;
@@ -91,10 +91,10 @@ public class Request {
 	public void setMaxPartecipants(int maxPartecipants) {
 		this.maxPartecipants = maxPartecipants;
 	}
-	public Set<Key> getPartecipants() {
+	public Set<Long> getPartecipants() {
 		return partecipants;
 	}
-	public void setPartecipants(Set<Key> partecipants) {
+	public void setPartecipants(Set<Long> partecipants) {
 		this.partecipants = partecipants;
 	}
 	public User getOwner() {

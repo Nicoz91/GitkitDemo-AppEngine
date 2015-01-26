@@ -225,6 +225,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "manager.updateUser" : {
+      "path" : "user",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "manager.getUser" : {
       "path" : "user/{id}",
       "httpMethod" : "GET",
@@ -241,22 +257,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "manager.updateUser" : {
-      "path" : "user",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -311,6 +311,27 @@
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUserByEmail",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "manager.getUserPartecipation" : {
+      "path" : "user/partecipation/{email}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUserPartecipation",
       "request" : {
         "parameters" : {
           "email" : {
@@ -485,7 +506,8 @@
           "partecipants" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Key"
+              "type" : "string",
+              "format" : "int64"
             }
           },
           "owner" : {
@@ -504,34 +526,6 @@
           "longitude" : {
             "type" : "number",
             "format" : "float"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
-          },
-          "complete" : {
-            "type" : "boolean"
           }
         }
       },
@@ -623,15 +617,15 @@
           "$ref" : "CollectionResponse_Request"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
-        "response" : {
-          "$ref" : "User"
-        }
-      },
       "it.polimi.appengine.entity.UserEndpoint.updateUser" : {
         "request" : {
           "$ref" : "User"
         },
+        "response" : {
+          "$ref" : "User"
+        }
+      },
+      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
         "response" : {
           "$ref" : "User"
         }
@@ -650,6 +644,11 @@
         }
       },
       "it.polimi.appengine.entity.UserEndpoint.getUserByEmail" : {
+        "response" : {
+          "$ref" : "User"
+        }
+      },
+      "it.polimi.appengine.entity.UserEndpoint.getUserPartecipation" : {
         "response" : {
           "$ref" : "User"
         }
