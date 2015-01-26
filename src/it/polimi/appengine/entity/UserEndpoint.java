@@ -34,7 +34,6 @@ public class UserEndpoint {
 	public CollectionResponse<User> listUser(
 			@Nullable @Named("cursor") String cursorString,
 			@Nullable @Named("limit") Integer limit) {
-		System.out.println("Fetch della lista degli utenti");
 		EntityManager mgr = null;
 		Cursor cursor = null;
 		List<User> execute = null;

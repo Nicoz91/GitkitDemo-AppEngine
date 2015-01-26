@@ -81,14 +81,11 @@ public class RequestEndpoint {
 		EntityManager mgr = getEntityManager();
 		Request request = null;
 		Key k = KeyFactory.stringToKey(id);
-		System.out.println("Stampo la k: "+k);
 		try {
 			request = mgr.find(Request.class, k);
 		} finally {
 			mgr.close();
 		}
-		if(request!=null)
-		System.out.println("Trovato: "+request.getTitle());
 		return request;
 	}
 
