@@ -33,6 +33,8 @@ public class Feedback {
 	private Date fromAge;
 	@Persistent
 	private boolean fromGender;
+	@Persistent
+	private String fromPhotoURL;
 	
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -86,4 +88,11 @@ public class Feedback {
 	public void setFromGender(boolean fromGender) {
 		this.fromGender = fromGender;
 	}
+	public String isFromPhotoURL() {
+		return fromPhotoURL;
+	}
+	public void setFromPhotoURL(String fromPhotoURL) {
+		this.fromPhotoURL = fromPhotoURL;
+	}
+	
 }

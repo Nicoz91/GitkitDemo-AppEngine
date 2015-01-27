@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/3K7IXh5biWgQXiq7yyYxk1MSEE0\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/fpEFJ5LeL7sHzBuIxSvrK7-yI_Y\"",
  "discoveryVersion": "v1",
  "id": "manager:v1",
  "name": "manager",
@@ -130,8 +130,21 @@
      "type": "integer",
      "format": "int32"
     },
-    "from": {
-     "$ref": "User"
+    "fromAge": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "fromGender": {
+     "type": "boolean"
+    },
+    "fromName": {
+     "type": "string"
+    },
+    "fromPhotoURL": {
+     "type": "string"
+    },
+    "fromSurname": {
+     "type": "string"
     },
     "id": {
      "type": "string"
@@ -152,34 +165,6 @@
     "longitude": {
      "type": "number",
      "format": "float"
-    }
-   }
-  },
-  "Key": {
-   "id": "Key",
-   "type": "object",
-   "properties": {
-    "appId": {
-     "type": "string"
-    },
-    "complete": {
-     "type": "boolean"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "kind": {
-     "type": "string"
-    },
-    "name": {
-     "type": "string"
-    },
-    "namespace": {
-     "type": "string"
-    },
-    "parent": {
-     "$ref": "Key"
     }
    }
   },
@@ -207,7 +192,8 @@
     "partecipants": {
      "type": "array",
      "items": {
-      "$ref": "Key"
+      "type": "string",
+      "format": "int64"
      }
     },
     "place": {
@@ -280,12 +266,6 @@
      "type": "array",
      "items": {
       "$ref": "Request"
-     }
-    },
-    "sentFb": {
-     "type": "array",
-     "items": {
-      "$ref": "Feedback"
      }
     },
     "surname": {
@@ -362,6 +342,27 @@
   "getUserByEmail": {
    "id": "manager.getUserByEmail",
    "path": "user/email/{email}",
+   "httpMethod": "GET",
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "email"
+   ],
+   "response": {
+    "$ref": "User"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getUserPartecipation": {
+   "id": "manager.getUserPartecipation",
+   "path": "user/partecipation/{email}",
    "httpMethod": "GET",
    "parameters": {
     "email": {

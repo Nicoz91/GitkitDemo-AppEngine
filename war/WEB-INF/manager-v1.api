@@ -410,6 +410,9 @@
           "fromGender" : {
             "type" : "boolean"
           },
+          "fromPhotoURL" : {
+            "type" : "string"
+          },
           "to" : {
             "$ref" : "User"
           }
@@ -463,7 +466,7 @@
               "type" : "string"
             }
           },
-          "sentFb" : {
+          "receivedFb" : {
             "type" : "array",
             "items" : {
               "$ref" : "Feedback"

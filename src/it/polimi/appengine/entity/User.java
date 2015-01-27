@@ -63,7 +63,7 @@ public class User {
 	@Persistent(mappedBy = "to")
 	@OneToMany(cascade = CascadeType.ALL)
 	@Basic(fetch = FetchType.EAGER)
-	private List<Feedback> sentFb;
+	private List<Feedback> receivedFb;
 	
 	@Persistent(mappedBy = "ownerDev")
 	private List<String> devices;
@@ -134,12 +134,6 @@ public class User {
 	public void setJoinedReq(Set<String> joinedReq) {
 		this.joinedReq = joinedReq;
 	}
-	public List<Feedback> getSentFb() {
-		return sentFb;
-	}
-	public void setSentFb(List<Feedback> sentFb) {
-		this.sentFb = sentFb;
-	}
 	public boolean isGender() {
 		return gender;
 	}
@@ -151,6 +145,12 @@ public class User {
 	}
 	public void setDevices(List<String> devices) {
 		this.devices = devices;
+	}
+	public List<Feedback> getReceivedFb() {
+		return receivedFb;
+	}
+	public void setReceivedFb(List<Feedback> receivedFb) {
+		this.receivedFb = receivedFb;
 	}
 	
 }
