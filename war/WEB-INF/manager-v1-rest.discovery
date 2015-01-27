@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/fpEFJ5LeL7sHzBuIxSvrK7-yI_Y\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/YnzqjUK8FHZnadVhTdBVmIfbUQ0\"",
  "discoveryVersion": "v1",
  "id": "manager:v1",
  "name": "manager",
@@ -130,27 +130,18 @@
      "type": "integer",
      "format": "int32"
     },
-    "fromAge": {
-     "type": "string",
-     "format": "date-time"
-    },
-    "fromGender": {
-     "type": "boolean"
-    },
-    "fromName": {
-     "type": "string"
-    },
-    "fromPhotoURL": {
-     "type": "string"
-    },
-    "fromSurname": {
-     "type": "string"
+    "from": {
+     "$ref": "User"
     },
     "id": {
      "type": "string"
     },
+    "request": {
+     "type": "string"
+    },
     "to": {
-     "$ref": "User"
+     "type": "string",
+     "format": "int64"
     }
    }
   },
@@ -256,16 +247,16 @@
     "pwAccount": {
      "type": "string"
     },
-    "receivedFb": {
-     "type": "array",
-     "items": {
-      "$ref": "Feedback"
-     }
-    },
     "requests": {
      "type": "array",
      "items": {
       "$ref": "Request"
+     }
+    },
+    "sentFb": {
+     "type": "array",
+     "items": {
+      "$ref": "Feedback"
      }
     },
     "surname": {

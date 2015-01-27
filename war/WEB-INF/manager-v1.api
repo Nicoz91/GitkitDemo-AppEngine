@@ -225,22 +225,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "manager.updateUser" : {
-      "path" : "user",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "manager.getUser" : {
       "path" : "user/{id}",
       "httpMethod" : "GET",
@@ -257,6 +241,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "manager.updateUser" : {
+      "path" : "user",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -397,24 +397,15 @@
           "description" : {
             "type" : "string"
           },
-          "fromName" : {
-            "type" : "string"
+          "from" : {
+            "$ref" : "User"
           },
-          "fromSurname" : {
-            "type" : "string"
-          },
-          "fromAge" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "fromGender" : {
-            "type" : "boolean"
-          },
-          "fromPhotoURL" : {
+          "request" : {
             "type" : "string"
           },
           "to" : {
-            "$ref" : "User"
+            "type" : "string",
+            "format" : "int64"
           }
         }
       },
@@ -466,7 +457,7 @@
               "type" : "string"
             }
           },
-          "receivedFb" : {
+          "sentFb" : {
             "type" : "array",
             "items" : {
               "$ref" : "Feedback"
@@ -624,15 +615,15 @@
           "$ref" : "CollectionResponse_Request"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.updateUser" : {
-        "request" : {
-          "$ref" : "User"
-        },
+      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
         "response" : {
           "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
+      "it.polimi.appengine.entity.UserEndpoint.updateUser" : {
+        "request" : {
+          "$ref" : "User"
+        },
         "response" : {
           "$ref" : "User"
         }

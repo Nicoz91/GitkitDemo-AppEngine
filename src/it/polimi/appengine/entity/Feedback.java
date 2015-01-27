@@ -24,21 +24,16 @@ public class Feedback {
 	private int evaluation;
 	@Persistent
 	private String description;
-	
-	@Persistent
-	private String fromName;
-	@Persistent
-	private String fromSurname;
-	@Persistent
-	private Date fromAge;
-	@Persistent
-	private boolean fromGender;
-	@Persistent
-	private String fromPhotoURL;
-	
+		
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
-	private User to;
+	private User from;
+	
+	@Persistent
+	private String request;
+	
+	@Persistent
+	private Long to;
 
 	public String getId() {
 		return id;
@@ -58,41 +53,23 @@ public class Feedback {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public User getTo() {
+	public User getFrom() {
+		return from;
+	}
+	public void setFrom(User from) {
+		this.from = from;
+	}
+	public String getRequest() {
+		return request;
+	}
+	public void setRequest(String request) {
+		this.request = request;
+	}
+	public Long getTo() {
 		return to;
 	}
-	public void setTo(User to) {
+	public void setTo(Long to) {
 		this.to = to;
-	}
-	public String getFromName() {
-		return fromName;
-	}
-	public void setFromName(String fromName) {
-		this.fromName = fromName;
-	}
-	public String getFromSurname() {
-		return fromSurname;
-	}
-	public void setFromSurname(String fromSurname) {
-		this.fromSurname = fromSurname;
-	}
-	public Date getFromAge() {
-		return fromAge;
-	}
-	public void setFromAge(Date fromAge) {
-		this.fromAge = fromAge;
-	}
-	public boolean isFromGender() {
-		return fromGender;
-	}
-	public void setFromGender(boolean fromGender) {
-		this.fromGender = fromGender;
-	}
-	public String isFromPhotoURL() {
-		return fromPhotoURL;
-	}
-	public void setFromPhotoURL(String fromPhotoURL) {
-		this.fromPhotoURL = fromPhotoURL;
 	}
 	
 }

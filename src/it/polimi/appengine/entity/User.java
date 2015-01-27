@@ -60,10 +60,10 @@ public class User {
 	@Persistent
 	private Set<String> joinedReq;
 	
-	@Persistent(mappedBy = "to")
+	@Persistent(mappedBy = "from")
 	@OneToMany(cascade = CascadeType.ALL)
 	@Basic(fetch = FetchType.EAGER)
-	private List<Feedback> receivedFb;
+	private List<Feedback> sentFb;
 	
 	@Persistent(mappedBy = "ownerDev")
 	private List<String> devices;
@@ -146,11 +146,12 @@ public class User {
 	public void setDevices(List<String> devices) {
 		this.devices = devices;
 	}
-	public List<Feedback> getReceivedFb() {
-		return receivedFb;
+	public List<Feedback> getSentFb() {
+		return sentFb;
 	}
-	public void setReceivedFb(List<Feedback> receivedFb) {
-		this.receivedFb = receivedFb;
+	public void setSentFb(List<Feedback> sentFb) {
+		this.sentFb = sentFb;
 	}
+
 	
 }
