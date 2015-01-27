@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/djSX00-CdhSCdQZ0y25jN_j8x4Q\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/3K7IXh5biWgQXiq7yyYxk1MSEE0\"",
  "discoveryVersion": "v1",
  "id": "manager:v1",
  "name": "manager",
@@ -153,6 +153,34 @@
     }
    }
   },
+  "Key": {
+   "id": "Key",
+   "type": "object",
+   "properties": {
+    "appId": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string"
+    },
+    "parent": {
+     "$ref": "Key"
+    }
+   }
+  },
   "Request": {
    "id": "Request",
    "type": "object",
@@ -177,8 +205,7 @@
     "partecipants": {
      "type": "array",
      "items": {
-      "type": "string",
-      "format": "int64"
+      "$ref": "Key"
      }
     },
     "place": {
@@ -326,25 +353,6 @@
   },
   "manager.getUserByEmail": {
    "id": "manager.getUserByEmail",
-   "allowGet": true,
-   "parameters": {
-    "email": {
-     "type": "string",
-     "required": true
-    }
-   },
-   "parameterOrder": [
-    "email"
-   ],
-   "returns": {
-    "$ref": "User"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "manager.getUserPartecipation": {
-   "id": "manager.getUserPartecipation",
    "allowGet": true,
    "parameters": {
     "email": {
