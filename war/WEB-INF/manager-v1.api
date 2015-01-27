@@ -303,14 +303,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "manager.getUserByEmail" : {
-      "path" : "user/email/{email}",
+    "manager.getUserPartecipation" : {
+      "path" : "user/partecipation/{email}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUserByEmail",
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUserPartecipation",
       "request" : {
         "parameters" : {
           "email" : {
@@ -324,14 +324,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "manager.getUserPartecipation" : {
-      "path" : "user/partecipation/{email}",
+    "manager.getUserByEmail" : {
+      "path" : "user/email/{email}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUserPartecipation",
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.getUserByEmail",
       "request" : {
         "parameters" : {
           "email" : {
@@ -397,8 +397,18 @@
           "description" : {
             "type" : "string"
           },
-          "from" : {
-            "$ref" : "User"
+          "fromName" : {
+            "type" : "string"
+          },
+          "fromSurname" : {
+            "type" : "string"
+          },
+          "fromAge" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "fromGender" : {
+            "type" : "boolean"
           },
           "to" : {
             "$ref" : "User"
@@ -451,12 +461,6 @@
             "type" : "array",
             "items" : {
               "type" : "string"
-            }
-          },
-          "receivedFb" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Feedback"
             }
           },
           "sentFb" : {
@@ -643,12 +647,12 @@
           "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.getUserByEmail" : {
+      "it.polimi.appengine.entity.UserEndpoint.getUserPartecipation" : {
         "response" : {
           "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.getUserPartecipation" : {
+      "it.polimi.appengine.entity.UserEndpoint.getUserByEmail" : {
         "response" : {
           "$ref" : "User"
         }

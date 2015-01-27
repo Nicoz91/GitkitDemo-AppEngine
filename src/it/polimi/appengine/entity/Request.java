@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import org.datanucleus.api.jpa.annotations.Extension;
 
 import com.google.appengine.api.datastore.GeoPt;
-import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Request {

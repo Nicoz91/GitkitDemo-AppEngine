@@ -27,8 +27,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.google.appengine.api.datastore.Key;
-
 @Entity
 public class User {
 
@@ -61,11 +59,6 @@ public class User {
 	
 	@Persistent
 	private Set<String> joinedReq;
-	
-	@Persistent(mappedBy = "from")
-	@OneToMany(cascade = CascadeType.ALL)
-	@Basic(fetch = FetchType.EAGER)
-	private List<Feedback> receivedFb;
 	
 	@Persistent(mappedBy = "to")
 	@OneToMany(cascade = CascadeType.ALL)
@@ -141,12 +134,6 @@ public class User {
 	public void setJoinedReq(Set<String> joinedReq) {
 		this.joinedReq = joinedReq;
 	}
-	public List<Feedback> getReceivedFb() {
-		return receivedFb;
-	}
-	public void setReceivedFb(List<Feedback> receivedFb) {
-		this.receivedFb = receivedFb;
-	}
 	public List<Feedback> getSentFb() {
 		return sentFb;
 	}
@@ -165,7 +152,5 @@ public class User {
 	public void setDevices(List<String> devices) {
 		this.devices = devices;
 	}
-
-	
 	
 }

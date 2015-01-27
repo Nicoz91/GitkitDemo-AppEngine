@@ -1,5 +1,7 @@
 package it.polimi.appengine.entity;
 
+import java.util.Date;
+
 import javax.jdo.annotations.Persistent;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.datanucleus.api.jpa.annotations.Extension;
-
-import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Feedback {
@@ -26,8 +26,14 @@ public class Feedback {
 	private String description;
 	
 	@Persistent
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User from;
+	private String fromName;
+	@Persistent
+	private String fromSurname;
+	@Persistent
+	private Date fromAge;
+	@Persistent
+	private boolean fromGender;
+	
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User to;
@@ -50,16 +56,34 @@ public class Feedback {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public User getFrom() {
-		return from;
-	}
-	public void setFrom(User from) {
-		this.from = from;
-	}
 	public User getTo() {
 		return to;
 	}
 	public void setTo(User to) {
 		this.to = to;
+	}
+	public String getFromName() {
+		return fromName;
+	}
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
+	}
+	public String getFromSurname() {
+		return fromSurname;
+	}
+	public void setFromSurname(String fromSurname) {
+		this.fromSurname = fromSurname;
+	}
+	public Date getFromAge() {
+		return fromAge;
+	}
+	public void setFromAge(Date fromAge) {
+		this.fromAge = fromAge;
+	}
+	public boolean isFromGender() {
+		return fromGender;
+	}
+	public void setFromGender(boolean fromGender) {
+		this.fromGender = fromGender;
 	}
 }
