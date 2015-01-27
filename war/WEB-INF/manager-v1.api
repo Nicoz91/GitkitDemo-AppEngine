@@ -403,9 +403,12 @@
           "request" : {
             "type" : "string"
           },
-          "to" : {
+          "toId" : {
             "type" : "string",
             "format" : "int64"
+          },
+          "to" : {
+            "$ref" : "User"
           }
         }
       },
@@ -458,6 +461,12 @@
             }
           },
           "sentFb" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Feedback"
+            }
+          },
+          "receivedFb" : {
             "type" : "array",
             "items" : {
               "$ref" : "Feedback"

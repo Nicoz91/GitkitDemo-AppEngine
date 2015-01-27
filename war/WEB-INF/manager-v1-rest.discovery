@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/YnzqjUK8FHZnadVhTdBVmIfbUQ0\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/vG0sT0qcbmbo_DEQFWHT6gDlIEw\"",
  "discoveryVersion": "v1",
  "id": "manager:v1",
  "name": "manager",
@@ -140,6 +140,9 @@
      "type": "string"
     },
     "to": {
+     "$ref": "User"
+    },
+    "toId": {
      "type": "string",
      "format": "int64"
     }
@@ -246,6 +249,12 @@
     },
     "pwAccount": {
      "type": "string"
+    },
+    "receivedFb": {
+     "type": "array",
+     "items": {
+      "$ref": "Feedback"
+     }
     },
     "requests": {
      "type": "array",

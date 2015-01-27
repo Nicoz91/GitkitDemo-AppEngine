@@ -33,7 +33,10 @@ public class Feedback {
 	private String request;
 	
 	@Persistent
-	private Long to;
+	private Long toId;
+	
+	@Persistent
+	private User to;
 
 	public String getId() {
 		return id;
@@ -65,11 +68,18 @@ public class Feedback {
 	public void setRequest(String request) {
 		this.request = request;
 	}
-	public Long getTo() {
+	public Long getToId() {
+		return toId;
+	}
+	public void setToId(Long toId) {
+		this.toId = toId;
+	}
+	public User getTo() {
 		return to;
 	}
-	public void setTo(Long to) {
+	public void setTo(User to) {
 		this.to = to;
 	}
+
 	
 }

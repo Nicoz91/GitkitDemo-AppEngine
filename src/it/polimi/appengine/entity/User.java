@@ -65,6 +65,9 @@ public class User {
 	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> sentFb;
 	
+	@Persistent
+	private List<Feedback> receivedFb;
+	
 	@Persistent(mappedBy = "ownerDev")
 	private List<String> devices;
 	
@@ -151,6 +154,12 @@ public class User {
 	}
 	public void setSentFb(List<Feedback> sentFb) {
 		this.sentFb = sentFb;
+	}
+	public List<Feedback> getReceivedFb() {
+		return receivedFb;
+	}
+	public void setReceivedFb(List<Feedback> receivedFb) {
+		this.receivedFb = receivedFb;
 	}
 
 	
