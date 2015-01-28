@@ -27,6 +27,22 @@
   "ownerName" : "polimi.it",
   "packagePath" : "appengine.entity",
   "methods" : {
+    "manager.updateFeedback" : {
+      "path" : "feedback",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "manager.listFeedback" : {
       "path" : "feedback",
       "httpMethod" : "GET",
@@ -47,22 +63,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "manager.updateFeedback" : {
-      "path" : "feedback",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -225,22 +225,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "manager.updateUser" : {
-      "path" : "user",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "manager.getUser" : {
       "path" : "user/{id}",
       "httpMethod" : "GET",
@@ -257,6 +241,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "manager.updateUser" : {
+      "path" : "user",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.appengine.entity.UserEndpoint.updateUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -369,21 +369,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Feedback" : {
-        "id" : "CollectionResponse_Feedback",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Feedback"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "Feedback" : {
         "id" : "Feedback",
         "type" : "object",
@@ -536,6 +521,21 @@
           }
         }
       },
+      "CollectionResponse_Feedback" : {
+        "id" : "CollectionResponse_Feedback",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Feedback"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "CollectionResponse_Request" : {
         "id" : "CollectionResponse_Request",
         "type" : "object",
@@ -568,17 +568,17 @@
       }
     },
     "methods" : {
-      "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Feedback"
-        }
-      },
       "it.polimi.appengine.entity.FeedbackEndpoint.updateFeedback" : {
         "request" : {
           "$ref" : "Feedback"
         },
         "response" : {
           "$ref" : "Feedback"
+        }
+      },
+      "it.polimi.appengine.entity.FeedbackEndpoint.listFeedback" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Feedback"
         }
       },
       "it.polimi.appengine.entity.FeedbackEndpoint.getFeedback" : {
@@ -624,15 +624,15 @@
           "$ref" : "CollectionResponse_Request"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.updateUser" : {
-        "request" : {
-          "$ref" : "User"
-        },
+      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
         "response" : {
           "$ref" : "User"
         }
       },
-      "it.polimi.appengine.entity.UserEndpoint.getUser" : {
+      "it.polimi.appengine.entity.UserEndpoint.updateUser" : {
+        "request" : {
+          "$ref" : "User"
+        },
         "response" : {
           "$ref" : "User"
         }

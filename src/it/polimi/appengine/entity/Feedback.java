@@ -36,6 +36,7 @@ public class Feedback {
 	private Long toId;
 	
 	@Persistent
+	@ManyToOne
 	private User to;
 
 	public String getId() {

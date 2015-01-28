@@ -65,7 +65,8 @@ public class User {
 	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> sentFb;
 	
-	@Persistent
+	@Persistent(mappedBy = "to")
+	@Basic(fetch = FetchType.EAGER)
 	private List<Feedback> receivedFb;
 	
 	@Persistent(mappedBy = "ownerDev")
