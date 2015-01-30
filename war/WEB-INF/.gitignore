@@ -1,1 +1,10 @@
 /classes/
+/deviceinfoendpoint-v1-rest.discovery
+/deviceinfoendpoint-v1-rpc.discovery
+/deviceinfoendpoint-v1.api
+/manager-v1-rest.discovery
+/manager-v1-rpc.discovery
+/manager-v1.api
+/messageEndpoint-v1-rest.discovery
+/messageEndpoint-v1-rpc.discovery
+/messageEndpoint-v1.api
