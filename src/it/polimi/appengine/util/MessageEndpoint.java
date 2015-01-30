@@ -1,6 +1,9 @@
 package it.polimi.appengine.util;
 
+import it.polimi.appengine.entity.User;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -145,6 +148,40 @@ public class MessageEndpoint {
       doSendViaGcm(message, sender, deviceInfo);
     }
   }
+  
+  @ApiMethod(name = "notify")
+  public void notify(@Named("message") String message,@Named("devices") String devices)
+	      throws IOException {
+	    Sender sender = new Sender(API_KEY);
+	    // create a MessageData entity with a timestamp of when it was
+	    // received, and persist it
+	    MessageData messageObj = new MessageData();
+	    messageObj.setMessage(message);
+	    messageObj.setTimestamp(System.currentTimeMillis());
+	    EntityManager mgr = getEntityManager();
+	    try {
+	      mgr.persist(messageObj);
+	    } finally {
+	      mgr.close();
+	    }
+
+
+	      doNotify(message, sender, devices);
+
+	  }
+
+  private static void doNotify(String message, Sender sender,
+	      String deviceInfo) throws IOException {
+	    // Trim message if needed.
+	    if (message.length() > 1000) {
+	      message = message.substring(0, 1000) + "[...]";
+	    }
+
+	    // This message object is a Google Cloud Messaging object, it is NOT 
+	    // related to the MessageData class
+	    Message msg = new Message.Builder().addData("message", message).build();
+	    sender.send(msg, deviceInfo,1);
+	  }
 
   /**
    * Sends the message using the Sender object to the registered device.
