@@ -41,7 +41,9 @@ public class Request {
 	@Persistent
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User owner;
-
+	@Persistent
+	private boolean pastRequest;
+	
 	public String getId() {
 		return id;
 	}
@@ -102,5 +104,12 @@ public class Request {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+	public boolean isPastRequest() {
+		return pastRequest;
+	}
+	public void setPastRequest(boolean pastRequest) {
+		this.pastRequest = pastRequest;
+	}
+	
 	
 }
