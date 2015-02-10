@@ -92,9 +92,24 @@ public class UserEndpoint {
 		EntityManager mgr = getEntityManager();
 		User user = null;
 		Query query = mgr.createQuery("select from User as User where User.pwAccount='"+email+"'");
-		//query.setFirstResult(0);
+		Query query1 = mgr.createQuery("select from User as User where User.gmailAccount='"+email+"'");	
+		Query query2 = mgr.createQuery("select from User as User where User.fbAccount='"+email+"'");
+
+		//query.setFirst Result(0);
+		System.out.println("Cerco l'utente");
 		try {
-			user = (User) query.getSingleResult();
+			if(query.getResultList().size()==0 && query1.getResultList().size()==0 && query2.getResultList().size()==0){
+				System.out.println("L'utente non esiste quindi creo un Dummy");
+				user = new User();
+			}
+			else {
+				if(query.getResultList().size()==1)
+					user = (User) query.getSingleResult();
+				if(query1.getResultList().size()==1)
+					user = (User) query1.getSingleResult();
+				if(query2.getResultList().size()==1)
+					user = (User) query2.getSingleResult();
+			}
 		} finally {
 			mgr.close();
 		}
@@ -115,7 +130,7 @@ public class UserEndpoint {
 		return user;
 	}
 
-	
+
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already
 	 * exists in the datastore, an exception is thrown.
@@ -129,9 +144,9 @@ public class UserEndpoint {
 		EntityManager mgr = getEntityManager();
 		try {
 			if(user.getId()!=null)
-			if (containsUser(user)) {
-				throw new EntityExistsException("Object already exists");
-			}
+				if (containsUser(user)) {
+					throw new EntityExistsException("Object already exists");
+				}
 			mgr.persist(user);
 		} finally {
 			mgr.close();
