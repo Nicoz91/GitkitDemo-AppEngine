@@ -96,7 +96,7 @@ public class UserEndpoint {
 		Query query2 = mgr.createQuery("select from User as User where User.fbAccount='"+email+"'");
 
 		//query.setFirst Result(0);
-		System.out.println("Cerco l'utente");
+//		System.out.println("Cerco l'utente");
 		try {
 			if(query.getResultList().size()==0 && query1.getResultList().size()==0 && query2.getResultList().size()==0){
 				System.out.println("L'utente non esiste quindi creo un Dummy");
