@@ -39,6 +39,8 @@ public class MessageData {
    */
   private long timestamp;
   
+  private Long userId;
+  
   public Key getKey() {
     return key;
   }
@@ -58,4 +60,14 @@ public class MessageData {
   public void setTimestamp(long timestamp) {
     this.timestamp = timestamp;
   }
+
+public Long getUserId() {
+	return userId;
+}
+
+public void setUserId(Long userId) {
+	this.userId = userId;
+}
+  
+  
 }

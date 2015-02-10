@@ -116,6 +116,53 @@ public class MessageEndpoint {
         .setNextPageToken(cursorString).build();
   }
   
+  
+  @ApiMethod(name = "getNotification")
+  public CollectionResponse<MessageData> getNotification(
+      @Nullable @Named("cursor") String cursorString,
+      @Nullable @Named("limit") Integer limit,
+      @Named("userid") Long userid) {
+
+    EntityManager mgr = null;  
+    Cursor cursor = null;
+    List<MessageData> execute = null;
+    
+    try {
+      mgr = getEntityManager();
+      // query for messages, newest message first
+      Query query = mgr
+          .createQuery("select from MessageData as MessageData where MessageData.userId="+userid+" order by timestamp desc");
+      if (cursorString != null && cursorString != "") {
+        cursor = Cursor.fromWebSafeString(cursorString);
+        query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
+      }
+
+
+      if (limit != null) {
+        query.setFirstResult(0);
+        query.setMaxResults(limit);
+      }
+
+      execute = (List<MessageData>) query.getResultList();
+      
+      System.out.println("Ho eseguito la query con id: "+userid+" size : "+execute.size());
+      cursor = JPACursorHelper.getCursor(execute);
+      if (cursor != null)
+        cursorString = cursor.toWebSafeString();
+
+      // Tight loop for fetching all entities from datastore and accomodate
+      // for lazy fetch.
+      for (MessageData obj : execute) {
+        ;
+      }
+    } finally {
+      mgr.close();
+    }
+
+    return CollectionResponse.<MessageData> builder().setItems(execute)
+        .setNextPageToken(cursorString).build();
+  }
+  
   /**
    * This accepts a message and persists it in the AppEngine datastore, it 
    * will also broadcast the message to upto 10 registered android devices
@@ -150,13 +197,14 @@ public class MessageEndpoint {
   }
   
   @ApiMethod(name = "notify")
-  public void notify(@Named("message") String message,@Named("devices") String devices)
+  public void notify(@Named("message") String message,@Named("devices") String devices,@Named("userid") Long userId)
 	      throws IOException {
 	    Sender sender = new Sender(API_KEY);
 	    // create a MessageData entity with a timestamp of when it was
 	    // received, and persist it
 	    MessageData messageObj = new MessageData();
 	    messageObj.setMessage(message);
+	    messageObj.setUserId(userId);
 	    messageObj.setTimestamp(System.currentTimeMillis());
 	    EntityManager mgr = getEntityManager();
 	    try {
